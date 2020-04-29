@@ -1,33 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="A new Flutter project.">
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="bt_habitat_ft_organizacion">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="bt_habitat_ft_organizacion">
+    <meta name="google-signin-client_id" content="679686002031-vpa9lnmpgpa2nvm622ec25bo0hgtvjv3.apps.googleusercontent.com">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-
-  <title>bt_habitat_ft_organizacion</title>
-  <link rel="manifest" href="manifest.json">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <title>bt_habitat_ft_organizacion</title>
+    <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
-  <!-- This script installs service_worker.js to provide PWA functionality to
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCMpCngd5uYNjImLw176P09VyHA1Efq1MY",
+            authDomain: "botanico-habitat.firebaseapp.com",
+            databaseURL: "https://botanico-habitat.firebaseio.com",
+            projectId: "botanico-habitat",
+            storageBucket: "botanico-habitat.appspot.com",
+            messagingSenderId: "679686002031",
+            appId: "1:679686002031:web:0fb64cc0318e7c0636c49a",
+            measurementId: "G-9SKR7R4QE1"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+
+    <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('flutter_service_worker.js');
-      });
-    }
-  </script>
-  <script src="main.dart.js" type="application/javascript"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('flutter_service_worker.js');
+            });
+        }
+    </script>
+    <script src="main.dart.js" type="application/javascript"></script>
 </body>
+
 </html>
