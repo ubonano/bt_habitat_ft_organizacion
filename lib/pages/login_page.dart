@@ -58,7 +58,9 @@ class _LoginPageState extends State<LoginPage> {
                   'Google',
                   style: TextStyle(fontSize: 22),
                 ),
-                onPressed: () => Navigator.pushNamed(context, '/workshops')
+                onPressed: () => {
+                      Navigator.pushNamed(context, '/workshops')
+                }
                 ,
                 color: Colors.redAccent,
               ),
