@@ -5,11 +5,19 @@ import 'package:provider/provider.dart';
 class Workshops extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final workshopProvider = Provider.of<WorkshopProvider>(context);
 
-    return Scaffold(
-      body: ListView(
-        children: workshopProvider.list.map(loadListTile).toList(),
+    return ChangeNotifierProvider(
+      create: (context){
+        WorkshopProvider workshopProvider = WorkshopProvider();
+        workshopProvider.listTitle();
+        return workshopProvider;
+      },
+      child: Scaffold(
+        body: Consumer<WorkshopProvider>(
+          builder: (context, workshopProvider, _) => ListView(
+            children: workshopProvider.list.map(loadListTile).toList(),
+          ),
+        ),
       ),
     );
   }
