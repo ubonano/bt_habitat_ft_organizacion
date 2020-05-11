@@ -1,6 +1,5 @@
-import 'package:bt_habitat_ft_organizacion/pages/detail_workshop_page.dart';
-import 'package:bt_habitat_ft_organizacion/pages/login_page.dart';
-import 'package:bt_habitat_ft_organizacion/pages/workshops_page.dart';
+import 'package:bt_habitat_ft_organizacion/screens/login/login.dart';
+import 'package:bt_habitat_ft_organizacion/screens/workshops/workshops_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,13 +17,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/login',
+      initialRoute: '/workshops',
       routes: {
-        '/login': (BuildContext context) => LoginPage(),
-        '/workshops': (BuildContext context) => WorkShopsPage(),
-        '/detail-workshop': (BuildContext context) => DetailWorkshopPage(),
+        '/workshops': (BuildContext context) => WorkshopsScreen(),
+        '/login': (BuildContext context) => LoginScreen(),
       },
-      home: LoginPage(),
     );
   }
 }
