@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
 import 'package:bt_habitat_ft_organizacion/repositories/workshops_firebase_repository.dart';
 import 'package:bt_habitat_ft_organizacion/screens/workshops/bloc/workshops_bloc.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshops/widgets/create_workshop_fab/create_workshop_fab.dart';
+import 'package:bt_habitat_ft_organizacion/screens/workshops/widgets/add_workshop_fab/add_workshop_fab.dart';
 
 class WorkshopsScreen extends StatelessWidget {
   @override
@@ -16,7 +16,7 @@ class WorkshopsScreen extends StatelessWidget {
           title: Text("Talleres"),
         ),
         body: _Workshops(),
-        floatingActionButton: CreateWorkshopFAB(),
+        floatingActionButton: AddWorkshopFAB(),
       ),
     );
   }

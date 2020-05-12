@@ -3,7 +3,7 @@ import 'package:bt_habitat_ft_organizacion/screens/workshops/bloc/workshops_bloc
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CreateWorkshopFAB extends StatelessWidget {
+class AddWorkshopFAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
@@ -15,14 +15,14 @@ class CreateWorkshopFAB extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) {
-            return _buildCreateWorkshopDialog(context, workshopsBloc);
+            return _buildAddWorkshopDialog(context, workshopsBloc);
           },
         );
       },
     );
   }
 
-  Widget _buildCreateWorkshopDialog(BuildContext context, WorkshopsBloc workshopsBloc) {
+  Widget _buildAddWorkshopDialog(BuildContext context, WorkshopsBloc workshopsBloc) {
     final titleController = TextEditingController();
 
     return AlertDialog(
