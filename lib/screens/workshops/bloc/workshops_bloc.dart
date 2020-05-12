@@ -32,13 +32,9 @@ class WorkshopsBloc extends Bloc<WorkshopsEvent, WorkshopsState> {
       yield* _mapWorkshopsLoadStartedToState();
     } else if (event is WorkshopsLoadLoaded) {
       yield WorkshopsLoadSuccess(event.workshops);
+    } else if (event is WorkshopsCreated) {
+      yield* _mapWorkshopCreatedToState(event);
     }
-  }
-
-  @override
-  Future<void> close() {
-    _workshopsSubscription?.cancel();
-    return super.close();
   }
 
   Stream<WorkshopsState> _mapWorkshopsLoadStartedToState() async* {
@@ -47,5 +43,17 @@ class WorkshopsBloc extends Bloc<WorkshopsEvent, WorkshopsState> {
     _workshopsSubscription = _workshopsRepository.workshops().listen(
           (workshops) => add(WorkshopsLoadLoaded(workshops)),
         );
+  }
+
+  Stream<WorkshopsState> _mapWorkshopCreatedToState(WorkshopsCreated event) async*{
+    _workshopsRepository.addNewWorkshop(event.workshop)
+      .then((value) => add(WorkshopsLoadStarted()))
+      .catchError((error) => print(error)); // Asi se manejan las excepciones de firestore. Aqui se pueden lanzar nuevos eventos/estados para mostrarle al usuario
+  }
+
+  @override
+  Future<void> close() {
+    _workshopsSubscription?.cancel();
+    return super.close();
   }
 }
