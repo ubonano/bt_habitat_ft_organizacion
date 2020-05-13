@@ -45,12 +45,6 @@ class WorkshopsBloc extends Bloc<WorkshopsEvent, WorkshopsState> {
         );
   }
 
-  Stream<WorkshopsState> _mapWorkshopCreatedToState(WorkshopsCreated event) async*{
-    _workshopsRepository.addNewWorkshop(event.workshop)
-      .then((value) => add(WorkshopsLoadStarted()))
-      .catchError((error) => print(error)); // Asi se manejan las excepciones de firestore. Aqui se pueden lanzar nuevos eventos/estados para mostrarle al usuario
-  }
-
   @override
   Future<void> close() {
     _workshopsSubscription?.cancel();
