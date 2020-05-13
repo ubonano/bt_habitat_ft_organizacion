@@ -1,5 +1,5 @@
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshops/bloc/workshops_bloc.dart';
+import 'package:bt_habitat_ft_organizacion/screens/workshops/widgets/add_workshop_fab/bloc/bloc/add_workshop_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +7,7 @@ class AddWorkshopFAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final workshopsBloc = BlocProvider.of<WorkshopsBloc>(context);
+    final addWorkshopsBloc = BlocProvider.of<AddWorkshopBloc>(context);
 
     return FloatingActionButton(
       child: Icon(Icons.add),
@@ -15,14 +15,14 @@ class AddWorkshopFAB extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) {
-            return _buildAddWorkshopDialog(context, workshopsBloc);
+            return _buildAddWorkshopDialog(context, addWorkshopsBloc);
           },
         );
       },
     );
   }
 
-  Widget _buildAddWorkshopDialog(BuildContext context, WorkshopsBloc workshopsBloc) {
+  Widget _buildAddWorkshopDialog(BuildContext context, AddWorkshopBloc addWorkshopsBloc) {
     final titleController = TextEditingController();
 
     return AlertDialog(
@@ -43,7 +43,7 @@ class AddWorkshopFAB extends StatelessWidget {
         FlatButton(
           child: Text("Nuevo"),
           onPressed: () {
-            workshopsBloc.add(WorkshopsCreated(Workshop(title: titleController.text)));
+            addWorkshopsBloc.add(AddWorkshopStarted(Workshop(title: titleController.text)));
             Navigator.of(context).pop();
           },
         ),
