@@ -32,13 +32,7 @@ class WorkshopsBloc extends Bloc<WorkshopsEvent, WorkshopsState> {
       yield* _mapWorkshopsLoadStartedToState();
     } else if (event is WorkshopsLoadLoaded) {
       yield WorkshopsLoadSuccess(event.workshops);
-    }
-  }
-
-  @override
-  Future<void> close() {
-    _workshopsSubscription?.cancel();
-    return super.close();
+    } 
   }
 
   Stream<WorkshopsState> _mapWorkshopsLoadStartedToState() async* {
@@ -47,5 +41,11 @@ class WorkshopsBloc extends Bloc<WorkshopsEvent, WorkshopsState> {
     _workshopsSubscription = _workshopsRepository.workshops().listen(
           (workshops) => add(WorkshopsLoadLoaded(workshops)),
         );
+  }
+
+  @override
+  Future<void> close() {
+    _workshopsSubscription?.cancel();
+    return super.close();
   }
 }

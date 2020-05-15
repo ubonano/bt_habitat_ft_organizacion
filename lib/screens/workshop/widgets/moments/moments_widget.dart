@@ -1,7 +1,7 @@
 import 'package:bt_habitat_ft_organizacion/models/moment_model.dart';
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
 import 'package:bt_habitat_ft_organizacion/repositories/moments_firebase_repository.dart';
-import 'package:bt_habitat_ft_organizacion/widgets/moments/bloc/moments_bloc.dart';
+import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/moments/bloc/moments_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

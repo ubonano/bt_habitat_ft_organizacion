@@ -21,3 +21,13 @@ class WorkshopsLoadLoaded extends WorkshopsEvent {
   List<Object> get props => [this.workshops];
 
 }
+
+class WorkshopsCreated extends WorkshopsEvent {
+  final Workshop workshop;
+
+  WorkshopsCreated(this.workshop);
+
+  @override
+  List<Object> get props => [this.workshop];
+
+}

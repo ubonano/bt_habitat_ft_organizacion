@@ -15,6 +15,10 @@ class WorkshopsFirebaseRepository extends WorkshopsRepository{
           .toList();
     });
   }
-  
+
+  @override
+  Future<void> addNewWorkshop(Workshop workshop) {
+    return workshopCollection.add(workshop.toEntity().toDocument());
+  }
 
 }

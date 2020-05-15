@@ -1,6 +1,6 @@
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
 import 'package:bt_habitat_ft_organizacion/screens/workshop/bloc/workshop_bloc.dart';
-import 'package:bt_habitat_ft_organizacion/widgets/moments/moments_widget.dart';
+import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/moments/moments_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
