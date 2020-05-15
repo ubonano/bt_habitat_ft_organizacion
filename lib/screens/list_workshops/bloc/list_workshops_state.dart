@@ -1,20 +1,22 @@
-part of 'workshops_bloc.dart';
 
-abstract class WorkshopsState extends Equatable {
-  const WorkshopsState();
+
+part of 'list_workshops_bloc.dart';
+
+abstract class ListWorkshopsState extends Equatable {
+  const ListWorkshopsState();
 }
 
-class WorkshopsInitial extends WorkshopsState {
+class ListWorkshopsInitial extends ListWorkshopsState {
   @override
   List<Object> get props => [];
 }
 
-class WorkshopsLoadInProgress extends WorkshopsState {
+class WorkshopsLoadInProgress extends ListWorkshopsState {
   @override
   List<Object> get props => [];
 }
 
-class WorkshopsLoadSuccess extends WorkshopsState {
+class WorkshopsLoadSuccess extends ListWorkshopsState {
   final List<Workshop> workshops;
 
   WorkshopsLoadSuccess(this.workshops);
@@ -28,7 +30,7 @@ class WorkshopsLoadSuccess extends WorkshopsState {
   }
 }
 
-class WorkshopsLoadFailure extends WorkshopsState {
+class WorkshopsLoadFailure extends ListWorkshopsState {
   @override
   List<Object> get props => [];
 }

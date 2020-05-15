@@ -1,5 +1,5 @@
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
-import 'package:bt_habitat_ft_organizacion/repositories/workshops_firebase_repository.dart';
+import 'package:bt_habitat_ft_organizacion/repositories/workshop_firebase_repository.dart';
 import 'package:bt_habitat_ft_organizacion/screens/add_workshop/bloc/add_workshop_bloc.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -15,7 +15,8 @@ class AddWorkshopScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: BlocProvider<AddWorkshopBloc>(
-        create: (context) => AddWorkshopBloc(workshopsRepository: WorkshopsFirebaseRepository()),
+        create: (context) =>
+            AddWorkshopBloc(workshopRepository: WorkshopFirebaseRepository()),
         child: _CreateWorkshop(),
       ),
     );
@@ -58,7 +59,7 @@ class _CreateWorkshop extends StatelessWidget {
               ],
             ),
           );
-        }else if(state is AddWorkshopFailure){
+        } else if (state is AddWorkshopFailure) {
           return Container();
         }
       },

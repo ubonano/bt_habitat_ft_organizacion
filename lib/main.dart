@@ -1,5 +1,5 @@
+import 'package:bt_habitat_ft_organizacion/screens/list_workshops/list_workshops_screen.dart';
 import 'package:bt_habitat_ft_organizacion/screens/login/login.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshops/workshops_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/workshops',
       routes: {
-        '/workshops': (BuildContext context) => WorkshopsScreen(),
+        '/workshops': (BuildContext context) => ListWorkshopsScreen(),
         '/login': (BuildContext context) => LoginScreen(),
       },
     );

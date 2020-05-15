@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
-import 'package:bt_habitat_ft_organizacion/repositories/workshops_repository.dart';
+import 'package:bt_habitat_ft_organizacion/repositories/workshop_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +12,11 @@ part 'add_workshop_state.dart';
 class AddWorkshopBloc
     extends Bloc<AddWorkshopEvent, AddWorkshopState> {
 
-  final WorkshopsRepository _workshopsRepository;
+  final WorkshopRepository _workshopRepository;
 
-  AddWorkshopBloc({@required WorkshopsRepository workshopsRepository})
-      : assert(workshopsRepository != null),
-        _workshopsRepository = workshopsRepository;
+  AddWorkshopBloc({@required WorkshopRepository workshopRepository})
+      : assert(workshopRepository != null),
+        _workshopRepository = workshopRepository;
 
 
   @override
@@ -35,7 +35,7 @@ class AddWorkshopBloc
     yield AddWorkshopInProcess();
 
     try{
-      await _workshopsRepository.addNewWorkshop(workshop);
+      await _workshopRepository.addNewWorkshop(workshop);
       yield AddWorkshopSuccess();
     }catch(e){
       yield AddWorkshopFailure();
