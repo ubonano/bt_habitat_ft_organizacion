@@ -1,8 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
 import 'package:bt_habitat_ft_organizacion/repositories/workshops_firebase_repository.dart';
+import 'package:bt_habitat_ft_organizacion/screens/add_workshop/add_workshop_screen.dart';
 
-import 'package:bt_habitat_ft_organizacion/screens/create_workshop/create_workshop_screen.dart';
 import 'package:bt_habitat_ft_organizacion/screens/workshop/workshop_screen.dart';
 import 'package:bt_habitat_ft_organizacion/screens/workshops/bloc/workshops_bloc.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class WorkshopsScreen extends StatelessWidget {
         );
       },
       openBuilder: (context, action) {
-        return CreateWorkshopScreen();
+        return AddWorkshopScreen();
       },
     );
   }

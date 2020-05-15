@@ -1,11 +1,12 @@
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
 import 'package:bt_habitat_ft_organizacion/repositories/workshops_firebase_repository.dart';
-import 'package:bt_habitat_ft_organizacion/screens/create_workshop/bloc/create_workshop_bloc.dart';
+import 'package:bt_habitat_ft_organizacion/screens/add_workshop/bloc/add_workshop_bloc.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CreateWorkshopScreen extends StatelessWidget {
+class AddWorkshopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,8 +14,8 @@ class CreateWorkshopScreen extends StatelessWidget {
         title: Text('Crear un taller'),
         automaticallyImplyLeading: false,
       ),
-      body: BlocProvider<CreateWorkshopBloc>(
-        create: (context) => CreateWorkshopBloc(workshopsRepository: WorkshopsFirebaseRepository()),
+      body: BlocProvider<AddWorkshopBloc>(
+        create: (context) => AddWorkshopBloc(workshopsRepository: WorkshopsFirebaseRepository()),
         child: _CreateWorkshop(),
       ),
     );
@@ -24,18 +25,18 @@ class CreateWorkshopScreen extends StatelessWidget {
 class _CreateWorkshop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final CreateWorkshopBloc createWorkshopBloc =
-        BlocProvider.of<CreateWorkshopBloc>(context);
+    final AddWorkshopBloc createWorkshopBloc =
+        BlocProvider.of<AddWorkshopBloc>(context);
 
-    return BlocBuilder<CreateWorkshopBloc, CreateWorkshopState>(
+    return BlocBuilder<AddWorkshopBloc, AddWorkshopState>(
       builder: (context, state) {
-        if (state is CreateWorkshopInitial) {
+        if (state is AddWorkshopInitial) {
           return _buildInitialScreen(context, createWorkshopBloc);
-        } else if (state is CreatingWorkshop) {
+        } else if (state is AddWorkshopInProcess) {
           return Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is WorkshopCreated) {
+        } else if (state is AddWorkshopSuccess) {
           return Center(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -57,14 +58,15 @@ class _CreateWorkshop extends StatelessWidget {
               ],
             ),
           );
-          // Navigator.pop(context);
+        }else if(state is AddWorkshopFailure){
+          return Container();
         }
       },
     );
   }
 
   Widget _buildInitialScreen(
-      BuildContext context, CreateWorkshopBloc createWorkshopBloc) {
+      BuildContext context, AddWorkshopBloc createWorkshopBloc) {
     final TextEditingController textControllerWorkshop =
         TextEditingController();
     final TextEditingController textControllerObjetive =
@@ -109,7 +111,7 @@ class _CreateWorkshop extends StatelessWidget {
                   width: 30,
                 ),
                 RaisedButton(
-                  onPressed: () => createWorkshopBloc.add(CreateWorkshop(
+                  onPressed: () => createWorkshopBloc.add(AddWorkshopStarted(
                       Workshop(
                           title: textControllerWorkshop.text,
                           description: textControllerObjetive.text ?? ''))),
