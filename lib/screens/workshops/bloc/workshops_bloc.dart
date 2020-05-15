@@ -32,9 +32,7 @@ class WorkshopsBloc extends Bloc<WorkshopsEvent, WorkshopsState> {
       yield* _mapWorkshopsLoadStartedToState();
     } else if (event is WorkshopsLoadLoaded) {
       yield WorkshopsLoadSuccess(event.workshops);
-    } else if (event is WorkshopsCreated) {
-      yield* _mapWorkshopCreatedToState(event);
-    }
+    } 
   }
 
   Stream<WorkshopsState> _mapWorkshopsLoadStartedToState() async* {
