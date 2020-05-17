@@ -1,6 +1,8 @@
-import 'package:bt_habitat_ft_organizacion/screens/list_workshops/list_workshops_screen.dart';
-import 'package:bt_habitat_ft_organizacion/screens/login/login.dart';
 import 'package:flutter/material.dart';
+
+import 'screens/add_workshop/add_workshop_screen.dart';
+import 'screens/login/login.dart';
+import 'screens/workshops/workshops_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,8 +21,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/workshops',
       routes: {
-        '/workshops': (BuildContext context) => ListWorkshopsScreen(),
+        '/workshops': (BuildContext context) => WorkshopsScreen(),
         '/login': (BuildContext context) => LoginScreen(),
+        '/addworkshop': (BuildContext context) => AddWorkshopScreen(),
       },
     );
   }

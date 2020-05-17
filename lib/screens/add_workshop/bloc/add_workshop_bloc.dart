@@ -35,7 +35,7 @@ class AddWorkshopBloc
     yield AddWorkshopInProcess();
 
     try{
-      await _workshopRepository.addNewWorkshop(workshop);
+      await _workshopRepository.add(workshop);
       yield AddWorkshopSuccess();
     }catch(e){
       yield AddWorkshopFailure();

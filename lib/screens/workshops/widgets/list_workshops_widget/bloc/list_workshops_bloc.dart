@@ -30,14 +30,14 @@ class ListWorkshopsBloc extends Bloc<ListWorkshopsEvent, ListWorkshopsState> {
     if (event is ListWorkshopsStarted) {
       yield* _mapWorkshopsLoadStartedToState();
     } else if (event is ListWorkshopsLoaded) {
-      yield WorkshopsLoadSuccess(event.workshops);
+      yield ListWorkshopsSuccess(event.workshops);
     } 
   }
 
   Stream<ListWorkshopsState> _mapWorkshopsLoadStartedToState() async* {
-    yield WorkshopsLoadInProgress();
+    yield ListWorkshopsInProcess();
     _workshopsSubscription?.cancel();
-    _workshopsSubscription = _workshopRepository.workshops().listen(
+    _workshopsSubscription = _workshopRepository.all().listen(
           (workshops) => add(ListWorkshopsLoaded(workshops)),
         );
   }

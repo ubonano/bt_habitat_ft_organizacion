@@ -11,19 +11,19 @@ class AddWorkshopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crear un taller'),
+        title: Text('Crear mas de  un taller'),
         automaticallyImplyLeading: false,
       ),
       body: BlocProvider<AddWorkshopBloc>(
         create: (context) =>
             AddWorkshopBloc(workshopRepository: WorkshopFirebaseRepository()),
-        child: _CreateWorkshop(),
+        child: _AddWorkshop(),
       ),
     );
   }
 }
 
-class _CreateWorkshop extends StatelessWidget {
+class _AddWorkshop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AddWorkshopBloc createWorkshopBloc =
@@ -60,6 +60,8 @@ class _CreateWorkshop extends StatelessWidget {
             ),
           );
         } else if (state is AddWorkshopFailure) {
+          return Container();
+        }else{
           return Container();
         }
       },

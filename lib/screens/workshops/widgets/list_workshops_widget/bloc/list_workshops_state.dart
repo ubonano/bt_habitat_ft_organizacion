@@ -11,26 +11,21 @@ class ListWorkshopsInitial extends ListWorkshopsState {
   List<Object> get props => [];
 }
 
-class WorkshopsLoadInProgress extends ListWorkshopsState {
+class ListWorkshopsInProcess extends ListWorkshopsState {
   @override
   List<Object> get props => [];
 }
 
-class WorkshopsLoadSuccess extends ListWorkshopsState {
+class ListWorkshopsSuccess extends ListWorkshopsState {
   final List<Workshop> workshops;
 
-  WorkshopsLoadSuccess(this.workshops);
+  ListWorkshopsSuccess(this.workshops);
 
   @override
   List<Object> get props => [workshops];
-
-  @override
-  String toString() {
-    return 'WorkshopsLoadSuccess {${this.workshops}}';
-  }
 }
 
-class WorkshopsLoadFailure extends ListWorkshopsState {
+class ListWorkshopsFailure extends ListWorkshopsState {
   @override
   List<Object> get props => [];
 }

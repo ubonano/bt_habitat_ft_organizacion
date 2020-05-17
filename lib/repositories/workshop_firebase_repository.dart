@@ -14,18 +14,23 @@ class WorkshopFirebaseRepository extends WorkshopRepository {
 
   WorkshopFirebaseRepository._internal();
 
-  final workshopCollection =
+  final _workshopCollection =
       Firestore.instance.collection(Workshop.collectionName);
 
   @override
-  Stream<List<Workshop>> workshops() {
-    return workshopCollection.snapshots().map((snapshot) => snapshot.documents
+  Stream<List<Workshop>> all() {
+    return _workshopCollection.snapshots().map((snapshot) => snapshot.documents
         .map((doc) => Workshop.fromEntity(WorkshopEntity.fromSnapshot(doc)))
         .toList());
   }
 
   @override
-  Future<void> addNewWorkshop(Workshop workshop) {
-    return workshopCollection.add(workshop.toEntity().toDocument());
+  Future<void> add(Workshop workshop) {
+    return _workshopCollection.add(workshop.toEntity().toDocument());
+  }
+
+  @override
+  Future<void> delete(String workshopId) {
+    return _workshopCollection.document(workshopId).delete();
   }
 }
