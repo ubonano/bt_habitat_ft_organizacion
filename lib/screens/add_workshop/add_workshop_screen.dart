@@ -1,5 +1,5 @@
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
-import 'package:bt_habitat_ft_organizacion/repositories/workshops_firebase_repository.dart';
+import 'package:bt_habitat_ft_organizacion/repositories/workshop_firebase_repository.dart';
 import 'package:bt_habitat_ft_organizacion/screens/add_workshop/bloc/add_workshop_bloc.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -11,18 +11,19 @@ class AddWorkshopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crear un taller'),
+        title: Text('Crear mas de  un taller'),
         automaticallyImplyLeading: false,
       ),
       body: BlocProvider<AddWorkshopBloc>(
-        create: (context) => AddWorkshopBloc(workshopsRepository: WorkshopsFirebaseRepository()),
-        child: _CreateWorkshop(),
+        create: (context) =>
+            AddWorkshopBloc(workshopRepository: WorkshopFirebaseRepository()),
+        child: _AddWorkshop(),
       ),
     );
   }
 }
 
-class _CreateWorkshop extends StatelessWidget {
+class _AddWorkshop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AddWorkshopBloc createWorkshopBloc =
@@ -58,7 +59,9 @@ class _CreateWorkshop extends StatelessWidget {
               ],
             ),
           );
-        }else if(state is AddWorkshopFailure){
+        } else if (state is AddWorkshopFailure) {
+          return Container();
+        }else{
           return Container();
         }
       },
