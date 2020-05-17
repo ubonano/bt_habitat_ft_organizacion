@@ -1,12 +1,13 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/list_workshops_widget/list_workshops_widget.dart';
 
-
-
 class WorkshopsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Talleres"),
@@ -21,4 +22,3 @@ class WorkshopsScreen extends StatelessWidget {
     );
   }
 }
-
