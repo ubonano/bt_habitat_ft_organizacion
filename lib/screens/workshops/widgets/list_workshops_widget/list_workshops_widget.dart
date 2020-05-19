@@ -1,4 +1,3 @@
-import 'package:bt_habitat_ft_organizacion/widgets/message_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +8,15 @@ import 'package:bt_habitat_ft_organizacion/screens/workshop/workshop_screen.dart
 import 'bloc/list_workshops_bloc.dart';
 
 class ListWorkshopsWidget extends StatelessWidget {
+  const ListWorkshopsWidget({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ListWorkshopsBloc, ListWorkshopsState>(
       builder: (context, state) {
-        if (state is ListWorkshopsInitial || state is ListWorkshopsInProcess) {
-          return MessageDialog(message: 'Cargando');
+        if (state is ListWorkshopsInitial ||
+            state is ListWorkshopsInProcess) {
+          return Container();
         } else if (state is ListWorkshopsSuccess) {
           return _buildWorkshops(state.workshops);
         }

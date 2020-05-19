@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:bt_habitat_ft_organizacion/models/moment_model.dart';
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
-import 'package:bt_habitat_ft_organizacion/repositories/moments_firebase_repository.dart';
+import 'package:bt_habitat_ft_organizacion/repositories/impl/firebase/moment_firebase_repository.dart';
+import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/moment/moment_widget.dart';
 import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/moments/bloc/moments_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MomentsWidget extends StatelessWidget {
   final Workshop workshop;
@@ -14,12 +17,12 @@ class MomentsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<MomentsBloc>(
       create: (context) =>
-          MomentsBloc(momentsRepository: MomentsFirebaseRepository(workshop.id))
+          MomentsBloc(momentsRepository: MomentFirebaseRepository(workshop.id))
             ..init(),
       child: Column(
         children: <Widget>[
           _buildHeaderMoments(),
-          _buildBodyMoments(),
+          _buildBodyMoments(workshop.id),
         ],
       ),
     );
@@ -43,30 +46,37 @@ class MomentsWidget extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget _buildBodyMoments() {
-  return Container(
-    color: Color(0xFFCCCCCC),
-    child: BlocBuilder<MomentsBloc, MomentsState>(
-      builder: (context, state) {
-        if (state is MomentsInitial || state is MomentsLoadInProgress) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is MomentsLoadSuccess) {
-          final List<Moment> moments = state.moments;
+  Widget _buildBodyMoments(String workshopId) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      color: Color(0xFFCCCCCC),
+      child: BlocBuilder<MomentsBloc, MomentsState>(
+        builder: (context, state) {
+          if (state is MomentsInitial || state is MomentsLoadInProgress) {
+            return Container();
+          } else if (state is MomentsLoadSuccess) {
+            final List<Moment> moments = state.moments;
 
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: moments.length,
-            itemBuilder: (context, index) => ListTile(
-              title: Text(moments[index].title),
-              onTap: () {},
-            ),
-          );
-        } else {
-          return Container();
-        }
-      },
-    ),
-  );
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: moments.length,
+              itemBuilder: (context, index) => MomentWidget(workshopId: workshopId, moment: moments[index],),
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildMoment() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
+      width: double.infinity,
+      height: 30,
+      color: Colors.lightGreen,
+    );
+  }
 }

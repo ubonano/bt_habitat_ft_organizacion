@@ -13,15 +13,18 @@ class DeleteWorkshopWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return IconButton(
-      icon: Icon(
-        Icons.delete,
-        color: Colors.white,
-      ),
-      onPressed: () => BlocProvider.of<DeleteWorkshopBloc>(context).add(
-        DeleteWorkshopStarted(workshopId: workshopId),
-      ),
+    return BlocBuilder<DeleteWorkshopBloc, DeleteWorkshopState>(
+      builder: (context, state) {
+        return IconButton(
+          icon: Icon(
+            Icons.delete,
+            color: Colors.white,
+          ),
+          onPressed: () => BlocProvider.of<DeleteWorkshopBloc>(context).add(
+            DeleteWorkshopStarted(workshopId: workshopId),
+          ),
+        );
+      },
     );
   }
 }

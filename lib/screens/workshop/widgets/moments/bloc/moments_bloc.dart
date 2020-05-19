@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:bt_habitat_ft_organizacion/models/moment_model.dart';
-import 'package:bt_habitat_ft_organizacion/repositories/moments_repository.dart';
+import 'package:bt_habitat_ft_organizacion/repositories/moment_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +11,10 @@ part 'moments_state.dart';
 
 class MomentsBloc extends Bloc<MomentsEvent, MomentsState> {
 
-  final MomentsRepository _momentsRepository;
+  final MomentRepository _momentsRepository;
   StreamSubscription _momentsSubscription;
 
-    MomentsBloc({@required MomentsRepository momentsRepository})
+    MomentsBloc({@required MomentRepository momentsRepository})
       : assert(momentsRepository != null),
         _momentsRepository = momentsRepository;
 
@@ -35,7 +35,7 @@ class MomentsBloc extends Bloc<MomentsEvent, MomentsState> {
   Stream<MomentsState> _mapMomentssLoadStartedToState() async* {
     yield MomentsLoadInProgress();
     _momentsSubscription?.cancel();
-    _momentsSubscription = _momentsRepository.moments().listen(
+    _momentsSubscription = _momentsRepository.all().listen(
           (workshops) => add(MomentsLoadLoaded(workshops)),
         );
   }

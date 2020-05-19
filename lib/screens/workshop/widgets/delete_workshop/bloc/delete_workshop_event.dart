@@ -12,4 +12,7 @@ class DeleteWorkshopStarted extends DeleteWorkshopEvent{
   
   @override
   List<Object> get props => [this.workshopId];
+
+  @override
+  String toString() => 'DeleteWorkshopStarted { workshopId: $workshopId }';
 }

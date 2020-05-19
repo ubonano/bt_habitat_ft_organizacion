@@ -1,21 +1,22 @@
-import 'dart:async';
+import 'package:bt_habitat_ft_organizacion/repositories/workshop_repository.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
-import 'package:bt_habitat_ft_organizacion/repositories/workshop_firebase_repository.dart';
 
 part 'delete_workshop_event.dart';
 part 'delete_workshop_state.dart';
 
 class DeleteWorkshopBloc
     extends Bloc<DeleteWorkshopEvent, DeleteWorkshopState> {
-  final WorkshopFirebaseRepository _repository;
+  final WorkshopRepository _repository;
 
   DeleteWorkshopBloc({@required repository})
       : assert(repository != null),
         _repository = repository;
+
+
 
   @override
   DeleteWorkshopState get initialState => DeleteWorkshopInitial();

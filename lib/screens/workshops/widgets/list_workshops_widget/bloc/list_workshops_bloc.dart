@@ -18,7 +18,6 @@ class ListWorkshopsBloc extends Bloc<ListWorkshopsEvent, ListWorkshopsState> {
         _workshopRepository = workshopRepository;
 
   void init() => this.add(ListWorkshopsStarted());
-  
 
   @override
   ListWorkshopsState get initialState => ListWorkshopsInitial();
@@ -31,7 +30,7 @@ class ListWorkshopsBloc extends Bloc<ListWorkshopsEvent, ListWorkshopsState> {
       yield* _mapWorkshopsLoadStartedToState();
     } else if (event is ListWorkshopsLoaded) {
       yield ListWorkshopsSuccess(event.workshops);
-    } 
+    }
   }
 
   Stream<ListWorkshopsState> _mapWorkshopsLoadStartedToState() async* {
