@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:bt_habitat_ft_organizacion/screens/add_workshop/bloc/add_workshop_bloc.dart';
-import 'repositories/impl/firebase/workshop_firebase_repository.dart';
+import 'repositories/workshop_firebase_repository.dart';
 import 'screens/add_workshop/add_workshop_screen.dart';
 import 'screens/login/login.dart';
 import 'screens/workshop/widgets/delete_workshop/bloc/delete_workshop_bloc.dart';
 import 'screens/workshops/widgets/list_workshops_widget/bloc/list_workshops_bloc.dart';
 import 'screens/workshops/workshops_screen.dart';
+
+import 'package:bt_habitat_ft_organizacion/screens/add_workshop/bloc/add_workshop_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
   }
 
   List<BlocProvider> _providers() {
+
     return [
       BlocProvider<ListWorkshopsBloc>(
         create: (context) =>
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
       BlocProvider<DeleteWorkshopBloc>(
         create: (context) =>
             DeleteWorkshopBloc(repository: WorkshopFirebaseRepository()),
-      ),
+      ), 
       BlocProvider<AddWorkshopBloc>(
         create: (context) =>
             AddWorkshopBloc(workshopRepository: WorkshopFirebaseRepository()),
