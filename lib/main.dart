@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'repositories/workshop_firebase_repository.dart';
+import 'package:bt_habitat_ft_organizacion/screens/add_workshop/bloc/add_workshop_bloc.dart';
+import 'repositories/impl/firebase/workshop_firebase_repository.dart';
 import 'screens/add_workshop/add_workshop_screen.dart';
 import 'screens/login/login.dart';
 import 'screens/workshop/widgets/delete_workshop/bloc/delete_workshop_bloc.dart';
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: providers(),
+      providers: _providers(),
       child: MaterialApp(
         title: 'Habitat Demo',
         debugShowCheckedModeBanner: false,
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  List<BlocProvider> providers() {
+  List<BlocProvider> _providers() {
     return [
       BlocProvider<ListWorkshopsBloc>(
         create: (context) =>
@@ -43,8 +45,13 @@ class MyApp extends StatelessWidget {
               ..init(),
       ),
       BlocProvider<DeleteWorkshopBloc>(
-          create: (context) =>
-              DeleteWorkshopBloc(repository: WorkshopFirebaseRepository())),
+        create: (context) =>
+            DeleteWorkshopBloc(repository: WorkshopFirebaseRepository()),
+      ),
+      BlocProvider<AddWorkshopBloc>(
+        create: (context) =>
+            AddWorkshopBloc(workshopRepository: WorkshopFirebaseRepository()),
+      ),
     ];
   }
 }

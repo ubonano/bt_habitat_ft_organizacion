@@ -1,28 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MessageDialog extends StatelessWidget {
+class MessageDialog {
 
-  final message;
+  final BuildContext context;
+  final String message;
 
-  const MessageDialog({Key key, @required this.message}) : super(key: key);
+  MessageDialog({@required this.context, @required this.message});
 
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          CircularProgressIndicator(),
-          SizedBox(
-            width: 20,
-          ),
-          Text(
-            '$message ...',
-            style: TextStyle(fontSize: 18),
+  void show(){
+    showCupertinoDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+            title: Row(
+              children: <Widget>[
+                CircularProgressIndicator(),
+                SizedBox(
+                  width: 20,
+                ),
+                Text('$message ....'),
+              ],
+            ),
           )
-        ],
-      ),
-    );
+        ,
+      );
   }
+
+  void hide(){
+    Navigator.pop(context);
+  }
+
+
 }

@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
 import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/delete_workshop/bloc/delete_workshop_bloc.dart';
 import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/delete_workshop/delete_workshop_widget.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/moments/moments_widget.dart';
-import 'package:bt_habitat_ft_organizacion/widgets/message_dialog.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'widgets/moments/moments_widget.dart';
 
 class WorkshopScreen extends StatelessWidget {
   final Workshop workshop;
@@ -14,7 +17,7 @@ class WorkshopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<DeleteWorkshopBloc, DeleteWorkshopState>(
-      listener: _deleteListener,
+      listener: _listener,
       child: Scaffold(
         appBar: AppBar(
           actions: <Widget>[
@@ -23,27 +26,25 @@ class WorkshopScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: BlocBuilder<DeleteWorkshopBloc, DeleteWorkshopState>(
-          builder: (context, state) {
-            if (state is DeleteWorkshopInProcess) {
-              return MessageDialog(message: 'Eliminando');
-            } else {
-              return SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    children: <Widget>[
-                      _buildSentence('Titulo', workshop.title),
-                      _buildSentence('Objetivo', workshop.description),
-                      MomentsWidget(
-                        workshop: workshop,
-                      ),
-                    ],
-                  ),
+        body: SingleChildScrollView(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: 700,
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: <Widget>[
+                    _buildSentence('Titulo', workshop.title),
+                    _buildSentence('Objetivo', workshop.description),
+                    MomentsWidget(
+                      workshop: workshop,
+                    ),
+                  ],
                 ),
-              );
-            }
-          },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -75,8 +76,9 @@ class WorkshopScreen extends StatelessWidget {
     );
   }
 
-  void _deleteListener(BuildContext context, DeleteWorkshopState state){
-    if(state is DeleteWorkshopSuccess){
+  void _listener(BuildContext context, DeleteWorkshopState state) {
+    
+    if (state is DeleteWorkshopSuccess) {
       Navigator.pop(context);
     }
   }

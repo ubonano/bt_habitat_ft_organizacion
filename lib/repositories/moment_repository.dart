@@ -1,7 +1,7 @@
 import 'package:bt_habitat_ft_organizacion/models/moment_model.dart';
 
-abstract class MomentsRepository {
+abstract class MomentRepository {
   
-  Stream<List<Moment>> moments();
+  Stream<List<Moment>> all();
 
 }
