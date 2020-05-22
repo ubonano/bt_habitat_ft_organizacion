@@ -1,11 +1,10 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component/component_type.dart';
+import 'package:bt_habitat_ft_organizacion/component/component_type.dart';
+import 'package:bt_habitat_ft_organizacion/component/model/component_document_model.dart';
+import 'package:bt_habitat_ft_organizacion/component/model/component_image_model.dart';
+import 'package:bt_habitat_ft_organizacion/component/model/component_video_model.dart';
 
-import 'component_document_model.dart';
-import 'component_image_model.dart';
-import 'component_video_model.dart';
 
 abstract class Component {
 

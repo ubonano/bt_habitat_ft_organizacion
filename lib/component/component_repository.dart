@@ -1,8 +1,8 @@
+import 'package:bt_habitat_ft_organizacion/component/model/component.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:bt_habitat_ft_organizacion/models/component.dart';
-import 'package:bt_habitat_ft_organizacion/models/moment_model.dart';
-import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
+import 'package:bt_habitat_ft_organizacion/moment/moment_model.dart';
+import 'package:bt_habitat_ft_organizacion/workshop/workshop_model.dart';
 
 class ComponentRepository {
   CollectionReference componentReference;

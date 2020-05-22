@@ -1,21 +1,24 @@
 import 'dart:async';
+
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bloc/bloc.dart';
-import 'package:bt_habitat_ft_organizacion/models/component.dart';
-import 'package:bt_habitat_ft_organizacion/repositories/component_repository.dart';
-import 'package:equatable/equatable.dart';
+import 'package:bt_habitat_ft_organizacion/component/component_repository.dart';
+import 'package:bt_habitat_ft_organizacion/component/model/component.dart';
 
 part 'component_event.dart';
 part 'component_state.dart';
 
 class ComponentBloc extends Bloc<ComponentEvent, ComponentState> {
+  final String workshopId;
+  final String momentId;
+
   final ComponentRepository _repository;
   StreamSubscription _subscription;
 
-  ComponentBloc({@required ComponentRepository repository})
-      : assert(repository != null),
-        _repository = repository;
+  ComponentBloc(this.workshopId, this.momentId)
+      : _repository = ComponentRepository(workshopId, momentId);
 
   @override
   ComponentState get initialState => ComponentInitial();

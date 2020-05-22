@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:bt_habitat_ft_organizacion/models/component_video_model.dart';
-import 'package:bt_habitat_ft_organizacion/repositories/component_repository.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component/bloc/component_bloc.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component/component_type.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component/component_widget.dart';
-import 'package:bt_habitat_ft_organizacion/models/moment_model.dart';
+import 'package:bt_habitat_ft_organizacion/component/bloc/component_bloc.dart';
+import 'package:bt_habitat_ft_organizacion/component/component_type.dart';
+import 'package:bt_habitat_ft_organizacion/component/component_widget.dart';
+import 'package:bt_habitat_ft_organizacion/component/model/component_video_model.dart';
+import 'package:bt_habitat_ft_organizacion/moment/moment_model.dart';
 
 class MomentWidget extends StatelessWidget {
   final String workshopId;
@@ -21,9 +19,8 @@ class MomentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ComponentBloc>(
-      create: (context) => ComponentBloc(
-          repository: ComponentRepository(workshopId, moment.id))
-        ..add(ListComponentStarted()),
+      create: (context) =>
+          ComponentBloc(workshopId, moment.id)..add(ListComponentStarted()),
       child: _Moment(
         workshopId: workshopId,
         moment: moment,
@@ -157,7 +154,10 @@ class _Moment extends StatelessWidget {
           ),
           FlatButton(
             onPressed: () {
-              componentBloc.add(AddComponentStarted(ComponentVideo(title: controllerTitle.text, type: ComponentType.video, link: controllerlink.text)));
+              componentBloc.add(AddComponentStarted(ComponentVideo(
+                  title: controllerTitle.text,
+                  type: ComponentType.video,
+                  link: controllerlink.text)));
             },
             child: Text('Aceptar'),
           ),

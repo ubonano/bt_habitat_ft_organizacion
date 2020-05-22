@@ -1,8 +1,11 @@
+import 'package:bt_habitat_ft_organizacion/moment/moment_model.dart';
+import 'package:bt_habitat_ft_organizacion/moment/moment_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:bt_habitat_ft_organizacion/moment/bloc/moment_bloc.dart';
 import 'package:bt_habitat_ft_organizacion/workshop/bloc/workshop_bloc.dart';
 import 'package:bt_habitat_ft_organizacion/workshop/workshop_model.dart';
 
@@ -13,8 +16,15 @@ class WorkshopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<WorkshopBloc>(
-      create: (_) => WorkshopBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<WorkshopBloc>(
+          create: (_) => WorkshopBloc(),
+        ),
+        BlocProvider<MomentBloc>(
+          create: (_) => MomentBloc(workshop.id)..add(ListMomentStarted()),
+        )
+      ],
       child: _Workshop(
         workshop: workshop,
       ),
@@ -55,9 +65,7 @@ class _Workshop extends StatelessWidget {
                   children: <Widget>[
                     _buildSentence('Titulo', workshop.title),
                     _buildSentence('Objetivo', workshop.description),
-                    // MomentsWidget(
-                    //   workshop: workshop,
-                    // ),
+                    _buildMoments(workshop.id),
                   ],
                 ),
               ),
@@ -91,6 +99,34 @@ class _Workshop extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMoments(String workshopId) {
+    return BlocBuilder<MomentBloc, MomentState>(
+      builder: (context, state) {
+        if (state is ListMomentSuccess) {
+          List<Moment> moments = state.moments;
+
+          return Container(
+            width: 500,
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            color: Colors.blueGrey,
+            child: Column(
+              children: moments
+                  .map(
+                    (m) => MomentWidget(
+                      workshopId: workshopId,
+                      moment: m,
+                    ),
+                  )
+                  .toList(),
+            ),
+          );
+        } else {
+          return Container();
+        }
+      },
     );
   }
 }

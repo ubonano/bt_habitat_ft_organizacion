@@ -10,7 +10,7 @@ part 'workshop_state.dart';
 
 class WorkshopBloc extends Bloc<WorkshopEvent, WorkshopState> {
   final WorkshopRepository _workshopRepository = WorkshopRepository();
-  StreamSubscription _workshopsSubscription;
+  StreamSubscription _workshopSubscription;
 
   @override
   WorkshopState get initialState => WorkshopInitial();
@@ -32,7 +32,7 @@ class WorkshopBloc extends Bloc<WorkshopEvent, WorkshopState> {
 
   Stream<WorkshopState> _mapListWorkshopStartedToState() async* {
     yield ListWorkshopInProcess();
-    _workshopsSubscription?.cancel();
+    _workshopSubscription?.cancel();
     _workshopRepository.all().listen(
           (workshops) => add(ListWorkshopLoaded(workshops)),
         );
@@ -62,7 +62,7 @@ class WorkshopBloc extends Bloc<WorkshopEvent, WorkshopState> {
 
   @override
   Future<void> close() {
-    _workshopsSubscription?.cancel();
+    _workshopSubscription?.cancel();
     return super.close();
   }
 }

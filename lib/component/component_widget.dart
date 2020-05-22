@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:bt_habitat_ft_organizacion/models/component.dart';
+import 'package:bt_habitat_ft_organizacion/component/model/component.dart';
 
 import 'component_type.dart';
 

@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bt_habitat_ft_organizacion/models/component.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:bt_habitat_ft_organizacion/component/model/component.dart';
 
 class ComponentImage implements Component {
   final String id;

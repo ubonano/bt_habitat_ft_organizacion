@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 @immutable
 class Moment {
   static const String collectionName = 'moments';
@@ -13,7 +12,7 @@ class Moment {
   Moment({this.id, @required this.title});
 
   Moment.fromDocument(DocumentSnapshot snap)
-      : id = snap.data['id'],
+      : id = snap.documentID,
         title = snap.data['title'];
 
   Map<String, Object> toDocument() => {
