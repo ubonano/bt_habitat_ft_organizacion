@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/delete_workshop/bloc/delete_workshop_bloc.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/delete_workshop/delete_workshop_widget.dart';
-
-import 'widgets/moments/moments_widget.dart';
+import 'package:bt_habitat_ft_organizacion/workshop/bloc/workshop_bloc.dart';
+import 'package:bt_habitat_ft_organizacion/workshop/workshop_model.dart';
 
 class WorkshopScreen extends StatelessWidget {
   final Workshop workshop;
@@ -16,14 +13,35 @@ class WorkshopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DeleteWorkshopBloc, DeleteWorkshopState>(
-      listener: _listener,
+    return BlocProvider<WorkshopBloc>(
+      create: (_) => WorkshopBloc(),
+      child: _Workshop(
+        workshop: workshop,
+      ),
+    );
+  }
+}
+
+class _Workshop extends StatelessWidget {
+  final Workshop workshop;
+
+  const _Workshop({Key key, @required this.workshop}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<WorkshopBloc, WorkshopState>(
+      listener: (context, state) {
+        if (state is DeleteWorkshopSuccess) {
+          Navigator.pop(context);
+        }
+      },
       child: Scaffold(
         appBar: AppBar(
           actions: <Widget>[
-            DeleteWorkshopWidget(
-              workshopId: workshop.id,
-            ),
+            IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () => BlocProvider.of<WorkshopBloc>(context)
+                    .add(DeleteWorkshopStarted(workshop.id))),
           ],
         ),
         body: SingleChildScrollView(
@@ -37,9 +55,9 @@ class WorkshopScreen extends StatelessWidget {
                   children: <Widget>[
                     _buildSentence('Titulo', workshop.title),
                     _buildSentence('Objetivo', workshop.description),
-                    MomentsWidget(
-                      workshop: workshop,
-                    ),
+                    // MomentsWidget(
+                    //   workshop: workshop,
+                    // ),
                   ],
                 ),
               ),
@@ -74,12 +92,5 @@ class WorkshopScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _listener(BuildContext context, DeleteWorkshopState state) {
-    
-    if (state is DeleteWorkshopSuccess) {
-      Navigator.pop(context);
-    }
   }
 }

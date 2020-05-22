@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:bt_habitat_ft_organizacion/repositories/moment_repository.dart';
 import 'package:bt_habitat_ft_organizacion/models/moment_model.dart';
 import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
-import 'package:bt_habitat_ft_organizacion/repositories/impl/firebase/moment_firebase_repository.dart';
 import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/moment/moment_widget.dart';
 import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/moments/bloc/moments_bloc.dart';
 
@@ -17,7 +17,7 @@ class MomentsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<MomentsBloc>(
       create: (context) =>
-          MomentsBloc(momentsRepository: MomentFirebaseRepository(workshop.id))
+          MomentsBloc(momentsRepository: MomentRepository(workshop.id))
             ..init(),
       child: Column(
         children: <Widget>[

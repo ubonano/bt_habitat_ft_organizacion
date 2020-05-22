@@ -1,7 +1,8 @@
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component_widget/component_enum.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bt_habitat_ft_organizacion/models/component_model.dart';
+import 'package:bt_habitat_ft_organizacion/models/component.dart';
+
+import 'component_type.dart';
 
 class ComponentWidget extends StatelessWidget {
   final Component component;
@@ -16,7 +17,7 @@ class ComponentWidget extends StatelessWidget {
         color: Colors.white,
         child: Row(
           children: <Widget>[
-            IconType.getIcon(component.type),
+            ComponentType.getIconByType(component.type),
             SizedBox(
               width: 10,
             ),

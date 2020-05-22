@@ -20,8 +20,21 @@ class ListComponentLoaded extends ComponentEvent{
   ListComponentLoaded({this.components});
 
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
 
   @override
   String toString() => 'ListComponentLoaded { components: $components }';
+}
+
+class AddComponentStarted extends ComponentEvent{
+
+  final Component component;
+
+  AddComponentStarted(this.component);
+  
+  @override
+  List<Object> get props => [this.component];
+
+  @override
+  String toString() => 'AddComponentStarted {component: ${this.component}}';
 }

@@ -28,3 +28,31 @@ class ListComponentSuccess extends ComponentState{
   @override
   String toString() => 'ListComponentSuccess {}';
 }
+
+
+class AddComponentInProcess extends ComponentState{
+  
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'AddComponentInProcess {}';
+}
+
+class AddComponentSuccess extends ComponentState{
+  
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'AddComponentSuccess {}';
+}
+
+class AddComponentFailure extends ComponentState{
+  
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'AddComponentFailure {}';
+}

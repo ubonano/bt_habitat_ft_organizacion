@@ -1,6 +1,6 @@
+import 'package:bt_habitat_ft_organizacion/workshop/workshop_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:bt_habitat_ft_organizacion/models/workshop_model.dart';
 
 class WorkshopRepository {
   static final WorkshopRepository _workshopRepository =

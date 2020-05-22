@@ -1,11 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:bt_habitat_ft_organizacion/repositories/impl/firebase/component_firebase_repository.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component_widget/bloc/component_bloc.dart';
-import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component_widget/compoment_widget.dart';
-
+import 'package:bt_habitat_ft_organizacion/models/component_video_model.dart';
+import 'package:bt_habitat_ft_organizacion/repositories/component_repository.dart';
+import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component/bloc/component_bloc.dart';
+import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component/component_type.dart';
+import 'package:bt_habitat_ft_organizacion/screens/workshop/widgets/component/component_widget.dart';
 import 'package:bt_habitat_ft_organizacion/models/moment_model.dart';
 
 class MomentWidget extends StatelessWidget {
@@ -20,35 +22,73 @@ class MomentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ComponentBloc>(
       create: (context) => ComponentBloc(
-          repository: ComponentFirebaseRepository(workshopId, moment.id))
+          repository: ComponentRepository(workshopId, moment.id))
         ..add(ListComponentStarted()),
+      child: _Moment(
+        workshopId: workshopId,
+        moment: moment,
+      ),
+    );
+  }
+}
+
+class _Moment extends StatelessWidget {
+  final String workshopId;
+  final Moment moment;
+
+  const _Moment({Key key, this.workshopId, this.moment}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    ComponentBloc componentBloc = BlocProvider.of<ComponentBloc>(context);
+
+    return BlocListener<ComponentBloc, ComponentState>(
+      listener: (context, state) {
+        if (state is AddComponentSuccess) {
+          Navigator.pop(context);
+        }
+      },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        child: Column(
-          children: <Widget>[
-            _buildHeaderMoment(),
-            _buildBodyMoment(),
-          ],
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            children: <Widget>[
+              _buildHeaderMoment(context, componentBloc),
+              _buildBodyMoment(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildHeaderMoment() {
+  Widget _buildHeaderMoment(BuildContext context, ComponentBloc componentBloc) {
     return Container(
       padding: EdgeInsets.only(left: 20),
       height: 40,
       color: Colors.green,
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          '${moment.title}',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
+      child: Row(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              '${moment.title}',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
           ),
-        ),
+          Expanded(child: Container()),
+          IconButton(
+            icon: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () => _addVideoComponent(context, componentBloc),
+          ),
+        ],
       ),
     );
   }
@@ -73,4 +113,119 @@ class MomentWidget extends StatelessWidget {
       },
     );
   }
+
+  void _addVideoComponent(BuildContext context, ComponentBloc componentBloc) {
+    TextEditingController controllerTitle = TextEditingController();
+    TextEditingController controllerlink = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ComponentType.iconVideo(),
+            SizedBox(
+              width: 15,
+            ),
+            Text('Agregar Video'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            TextFormField(
+              controller: controllerTitle,
+              decoration: InputDecoration(
+                hintText: 'Agregar un titulo',
+                labelText: 'Titulo',
+              ),
+            ),
+            TextFormField(
+              controller: controllerlink,
+              decoration: InputDecoration(
+                hintText: 'Agregar el link',
+                labelText: 'Link del video',
+              ),
+            )
+          ],
+        ),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancelar'),
+          ),
+          FlatButton(
+            onPressed: () {
+              componentBloc.add(AddComponentStarted(ComponentVideo(title: controllerTitle.text, type: ComponentType.video, link: controllerlink.text)));
+            },
+            child: Text('Aceptar'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // void _addDocumentComponent(
+  //     BuildContext context, ComponentBloc componentBloc) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: Text('Agregar Video'),
+  //       content: Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: <Widget>[
+  //           TextFormField(
+  //             decoration: InputDecoration(
+  //               hintText: 'Agregar un titulo',
+  //               labelText: 'Titulo',
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       actions: <Widget>[
+  //         FlatButton(
+  //           onPressed: () => Navigator.pop(context),
+  //           child: Text('Cancelar'),
+  //         ),
+  //         FlatButton(
+  //           onPressed: () => componentBloc.add(AddComponentStarted(
+  //               Component(title: 'Julieta', type: ComponentType.document))),
+  //           child: Text('Aceptar'),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // void _addPhotoComponent(BuildContext context, ComponentBloc componentBloc) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: Text('Agregar Video'),
+  //       content: Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: <Widget>[
+  //           TextFormField(
+  //             decoration: InputDecoration(
+  //               hintText: 'Agregar un titulo',
+  //               labelText: 'Titulo',
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       actions: <Widget>[
+  //         FlatButton(
+  //           onPressed: () => Navigator.pop(context),
+  //           child: Text('Cancelar'),
+  //         ),
+  //         FlatButton(
+  //           onPressed: () => componentBloc.add(AddComponentStarted(
+  //               Component(title: 'Julieta', type: ComponentType.image))),
+  //           child: Text('Aceptar'),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
