@@ -1,10 +1,10 @@
-part of 'moment_bloc.dart';
+part of 'list_moment_bloc.dart';
 
-abstract class MomentEvent extends Equatable {
-  const MomentEvent();
+abstract class ListMomentEvent extends Equatable {
+  const ListMomentEvent();
 }
 
-class ListMomentStarted extends MomentEvent {
+class ListMomentStarted extends ListMomentEvent {
   @override
   List<Object> get props => [];
 
@@ -12,7 +12,7 @@ class ListMomentStarted extends MomentEvent {
   String toString() => 'ListMomentStarted {}';
 }
 
-class ListMomentLoaded extends MomentEvent {
+class ListMomentLoaded extends ListMomentEvent {
   final List<Moment> moments;
 
   ListMomentLoaded(this.moments);

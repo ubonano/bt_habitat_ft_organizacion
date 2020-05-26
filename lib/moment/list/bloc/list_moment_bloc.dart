@@ -6,23 +6,23 @@ import 'package:bloc/bloc.dart';
 import 'package:bt_habitat_ft_organizacion/moment/moment_repository.dart';
 import 'package:bt_habitat_ft_organizacion/moment/moment_model.dart';
 
-part 'moment_event.dart';
-part 'moment_state.dart';
+part 'list_moment_event.dart';
+part 'list_moment_state.dart';
 
-class MomentBloc extends Bloc<MomentEvent, MomentState> {
+class ListMomentBloc extends Bloc<ListMomentEvent, ListMomentState> {
   final String workshopId;
   final MomentRepository _momentsRepository;
   StreamSubscription _momentSubscription;
 
-  MomentBloc(this.workshopId)
+  ListMomentBloc(this.workshopId)
       : _momentsRepository = MomentRepository(workshopId);
 
   @override
-  MomentState get initialState => MomentInitial();
+  ListMomentState get initialState => ListMomentInitial();
 
   @override
-  Stream<MomentState> mapEventToState(
-    MomentEvent event,
+  Stream<ListMomentState> mapEventToState(
+    ListMomentEvent event,
   ) async* {
     if (event is ListMomentStarted) {
       yield* _mapListMomentStartedToState();
@@ -31,7 +31,7 @@ class MomentBloc extends Bloc<MomentEvent, MomentState> {
     }
   }
 
-  Stream<MomentState> _mapListMomentStartedToState() async* {
+  Stream<ListMomentState> _mapListMomentStartedToState() async* {
     yield ListMomentInProcess();
     _momentSubscription?.cancel();
     _momentSubscription = _momentsRepository.all().listen(

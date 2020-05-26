@@ -1,15 +1,15 @@
-part of 'moment_bloc.dart';
+part of 'list_moment_bloc.dart';
 
-abstract class MomentState extends Equatable {
-  const MomentState();
+abstract class ListMomentState extends Equatable {
+  const ListMomentState();
 }
 
-class MomentInitial extends MomentState {
+class ListMomentInitial extends ListMomentState {
   @override
   List<Object> get props => [];
 }
 
-class ListMomentInProcess extends MomentState {
+class ListMomentInProcess extends ListMomentState {
   @override
   List<Object> get props => [];
 
@@ -17,7 +17,7 @@ class ListMomentInProcess extends MomentState {
   String toString() => 'ListMomentInProcess {}';
 }
 
-class ListMomentSuccess extends MomentState {
+class ListMomentSuccess extends ListMomentState {
   final List<Moment> moments;
 
   ListMomentSuccess(this.moments);

@@ -1,9 +1,9 @@
+import 'package:bt_habitat_ft_organizacion/workshop/add/bloc/add_workshop_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:bt_habitat_ft_organizacion/workshop/bloc/workshop_bloc.dart';
 import 'package:bt_habitat_ft_organizacion/workshop/workshop_model.dart';
 
 class AddWorkshopScreen extends StatelessWidget {
@@ -11,8 +11,15 @@ class AddWorkshopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: BlocProvider<WorkshopBloc>(
-        create: (context) => WorkshopBloc(),
+      body: MultiBlocProvider(
+        providers: [
+          // BlocProvider<WorkshopBloc>(
+          //   create: (context) => WorkshopBloc(),
+          // ),
+          BlocProvider<AddWorkshopBloc>(
+            create: (context) => AddWorkshopBloc(),
+          )
+        ],
         child: _AddWorkshop(),
       ),
     );
@@ -27,7 +34,7 @@ class _AddWorkshop extends StatelessWidget {
     final TextEditingController textControllerObjetive =
         TextEditingController();
 
-    return BlocListener<WorkshopBloc, WorkshopState>(
+    return BlocListener<AddWorkshopBloc, AddWorkshopState>(
       listener: (context, state) {
         if (state is AddWorkshopSuccess) {
           Navigator.pop(context);
@@ -58,10 +65,14 @@ class _AddWorkshop extends StatelessWidget {
                   width: 30,
                 ),
                 RaisedButton(
-                  onPressed: () => BlocProvider.of<WorkshopBloc>(context).add(
-                      AddWorkshopStarted(Workshop(
+                  onPressed: () =>
+                      BlocProvider.of<AddWorkshopBloc>(context).add(
+                    AddWorkshopStarted(
+                      Workshop(
                           title: textControllerWorkshop.text,
-                          description: textControllerObjetive.text ?? ''))),
+                          description: textControllerObjetive.text ?? ''),
+                    ),
+                  ),
                   child: Text("Aceptar"),
                   color: Colors.white,
                   textColor: Colors.green,

@@ -8,12 +8,13 @@ import 'package:bt_habitat_ft_organizacion/component/model/component_video_model
 
 abstract class Component {
 
+  final String id;
   final String title;
   final String type;
 
   static const String collectionName = 'components';
 
-  Component(this.title, this.type);
+  Component(this.title, this.type, this.id);
 
   static Component fromDocument(DocumentSnapshot doc) {
     if (ComponentType.video == doc.data['type']) {

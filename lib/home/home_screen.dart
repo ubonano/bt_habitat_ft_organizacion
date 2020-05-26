@@ -1,16 +1,26 @@
+import 'dart:math';
+
+import 'package:bt_habitat_ft_organizacion/workshop/add/bloc/add_workshop_bloc.dart';
+import 'package:bt_habitat_ft_organizacion/workshop/list/bloc/list_workshop_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:bt_habitat_ft_organizacion/workshop/bloc/workshop_bloc.dart';
 import 'package:bt_habitat_ft_organizacion/workshop/workshop_model.dart';
 import 'package:bt_habitat_ft_organizacion/workshop/workshop_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<WorkshopBloc>(
-      create: (context) => WorkshopBloc()..add(ListWorkshopStarted()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ListWorkshopBloc>(
+            create: (context) =>
+                ListWorkshopBloc()..add(ListWorkshopStarted())),
+        BlocProvider<AddWorkshopBloc>(
+          create: (context) => AddWorkshopBloc(),
+        )
+      ],
       child: _Home(),
     );
   }
@@ -19,7 +29,7 @@ class HomeScreen extends StatelessWidget {
 class _Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<WorkshopBloc, WorkshopState>(
+    return BlocListener<AddWorkshopBloc, AddWorkshopState>(
       listener: (context, state) {
         if (state is AddWorkshopSuccess) {
           Navigator.pop(context);
@@ -29,16 +39,27 @@ class _Home extends StatelessWidget {
           appBar: AppBar(
             title: Text('Talleres'),
           ),
-          body: _buildWorshopsItem(),
+          body: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                  width: 500,
+                  padding: EdgeInsets.only(top: 20),
+                  child: _buildWorshopsItem()),
+            ],
+          ),
           floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () => _buildAddWorkshop(
-                  context, BlocProvider.of<WorkshopBloc>(context)))),
+                  context, BlocProvider.of<AddWorkshopBloc>(context)))),
     );
   }
 
   Widget _buildWorshopsItem() {
-    return BlocBuilder<WorkshopBloc, WorkshopState>(
+
+    Random rnd = new Random();
+
+    return BlocBuilder<ListWorkshopBloc, ListWorkshopState>(
       builder: (context, state) {
         if (state is ListWorkshopInProcess) {
           return Center(
@@ -49,16 +70,25 @@ class _Home extends StatelessWidget {
 
           return ListView.builder(
             itemCount: workshops.length,
-            itemBuilder: (context, index) => ListTile(
-                title: Text(workshops[index].title ?? ''),
-                subtitle: Text(workshops[index].description ?? ''),
-                trailing: Icon(Icons.arrow_forward_ios),
-                onTap: () => Navigator.push(
+            itemBuilder: (context, index) => Column(
+              children: <Widget>[
+                ListTile(
+                  leading: CircleAvatar(backgroundColor: Color.fromARGB(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)),),
+                  title: Text(workshops[index].title ?? ''),
+                  subtitle: Text(workshops[index].description ?? ''),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                  onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
                           WorkshopScreen(workshop: workshops[index]),
-                    ))),
+                    ),
+                  ),
+                ),
+                Container(
+                    width: double.infinity, height: 2, color: Colors.grey[300]),
+              ],
+            ),
           );
         } else {
           return Center(
@@ -68,7 +98,8 @@ class _Home extends StatelessWidget {
     );
   }
 
-  void _buildAddWorkshop(BuildContext context, WorkshopBloc workshopBloc) {
+  void _buildAddWorkshop(
+      BuildContext context, AddWorkshopBloc addWorkshopBloc) {
     final TextEditingController textControllerWorkshop =
         TextEditingController();
     final TextEditingController textControllerObjetive =
@@ -96,27 +127,23 @@ class _Home extends StatelessWidget {
           ],
         ),
         actions: <Widget>[
-          RaisedButton(
+          FlatButton(
             onPressed: () => Navigator.pop(context),
-            child: Text("Cancelar"),
-            color: Colors.white,
-            textColor: Colors.red,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.red),
-              borderRadius: BorderRadius.circular(5),
-            ),
+            child: Text('Cancelar',
+                style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold)),
           ),
-          RaisedButton(
-            onPressed: () => workshopBloc.add(AddWorkshopStarted(Workshop(
+          FlatButton(
+            onPressed: () => addWorkshopBloc.add(AddWorkshopStarted(Workshop(
                 title: textControllerWorkshop.text,
                 description: textControllerObjetive.text ?? ''))),
-            child: Text("Aceptar"),
-            color: Colors.white,
-            textColor: Colors.green,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.green),
-              borderRadius: BorderRadius.circular(5),
-            ),
+            child: Text('Aceptar',
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold)),
           ),
         ],
       ),
