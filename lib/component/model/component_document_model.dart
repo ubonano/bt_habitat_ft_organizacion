@@ -17,7 +17,7 @@ class ComponentDocument implements Component {
       @required this.document});
 
   ComponentDocument.fromDocument(DocumentSnapshot snap)
-      : id = snap.data['id'],
+      : id = snap.documentID,
         title = snap.data['title'],
         type = snap.data['type'],
         document = snap.data['document'];

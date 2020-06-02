@@ -28,6 +28,10 @@ class MomentBloc extends Bloc<MomentEvent, MomentState> {
       yield* _mapListMomentStartedToState();
     } else if (event is ListMomentLoaded) {
       yield ListMomentSuccess(event.moments);
+    } else if (event is AddMomentStarted) {
+      yield* _mapAddMomentStartedToState(event.moment);
+    } else if (event is DeleteMomentStarted) {
+      yield* _mapDeleteMomentStartedToState(event.momentId);
     }
   }
 
@@ -37,6 +41,26 @@ class MomentBloc extends Bloc<MomentEvent, MomentState> {
     _momentSubscription = _momentsRepository.all().listen(
           (moments) => add(ListMomentLoaded(moments)),
         );
+  }
+
+  Stream<MomentState> _mapAddMomentStartedToState(Moment moment) async* {
+    try {
+      yield AddMomentInProcess();
+      _momentsRepository.add(moment);
+      yield AddMomentSuccess();
+    } catch (_) {
+      yield AddMomentFailure();
+    }
+  }
+
+  Stream<MomentState> _mapDeleteMomentStartedToState(String momentId) async* {
+    try {
+      yield DeleteMomentInProcess();
+      _momentsRepository.delete(momentId);
+      yield DeleteMomentSuccess();
+    } catch (_) {
+      yield DeleteMomentFailure();
+    }
   }
 
   @override

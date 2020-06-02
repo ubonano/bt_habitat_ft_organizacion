@@ -16,7 +16,6 @@ class Moment {
         title = snap.data['title'];
 
   Map<String, Object> toDocument() => {
-        'id': id,
         'title': title,
       };
 

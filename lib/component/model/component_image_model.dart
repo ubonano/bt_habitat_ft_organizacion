@@ -17,7 +17,7 @@ class ComponentImage implements Component {
       @required this.image});
 
   ComponentImage.fromDocument(DocumentSnapshot snap)
-      : id = snap.data['id'],
+      : id = snap.documentID,
         title = snap.data['title'],
         type = snap.data['type'],
         image = snap.data['image'];

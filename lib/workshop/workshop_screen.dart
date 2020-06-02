@@ -39,12 +39,21 @@ class _Workshop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<WorkshopBloc, WorkshopState>(
-      listener: (context, state) {
-        if (state is DeleteWorkshopSuccess) {
-          Navigator.pop(context);
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<WorkshopBloc, WorkshopState>(listener: (context, state) {
+          if (state is DeleteWorkshopSuccess) {
+            Navigator.pop(context);
+          }
+        }),
+        BlocListener<MomentBloc, MomentState>(
+          listener: (context, state) {
+            if (state is AddMomentSuccess) {
+              Navigator.pop(context);
+            }
+          },
+        )
+      ],
       child: Scaffold(
         appBar: AppBar(
           actions: <Widget>[
@@ -59,12 +68,14 @@ class _Workshop extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: 700,
+                width: 500,
                 padding: EdgeInsets.all(20),
                 child: Column(
                   children: <Widget>[
                     _buildSentence('Titulo', workshop.title),
                     _buildSentence('Objetivo', workshop.description),
+                    _buildHeaderMoment(
+                        context, BlocProvider.of<MomentBloc>(context)),
                     _buildMoments(workshop.id),
                   ],
                 ),
@@ -72,6 +83,69 @@ class _Workshop extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildHeaderMoment(BuildContext context, MomentBloc momentBloc) {
+    return Container(
+      padding: EdgeInsets.only(left: 20),
+      height: 40,
+      color: Colors.blueGrey,
+      child: Row(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Momentos',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          Expanded(child: Container()),
+          IconButton(
+              icon: Icon(Icons.add, color: Colors.white),
+              onPressed: () => _addMoment(context, momentBloc)),
+        ],
+      ),
+    );
+  }
+
+  void _addMoment(BuildContext context, MomentBloc momentBloc) {
+    TextEditingController ctrlTitle = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Agregar un Momento'),
+        content: TextFormField(
+          controller: ctrlTitle,
+          decoration: InputDecoration(
+            hintText: 'Nombre del momento',
+            labelText: 'Nombre',
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancelar',
+                style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold)),
+          ),
+          FlatButton(
+            onPressed: () =>
+                momentBloc.add(AddMomentStarted(Moment(title: ctrlTitle.text))),
+            child: Text('Aceptar',
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold)),
+          ),
+        ],
       ),
     );
   }

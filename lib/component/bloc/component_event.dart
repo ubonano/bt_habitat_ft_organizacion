@@ -4,9 +4,7 @@ abstract class ComponentEvent extends Equatable {
   const ComponentEvent();
 }
 
-
-class ListComponentStarted extends ComponentEvent{
-  
+class ListComponentStarted extends ComponentEvent {
   @override
   List<Object> get props => [];
 
@@ -14,7 +12,7 @@ class ListComponentStarted extends ComponentEvent{
   String toString() => 'ListComponentStarted {}';
 }
 
-class ListComponentLoaded extends ComponentEvent{
+class ListComponentLoaded extends ComponentEvent {
   final List<Component> components;
 
   ListComponentLoaded({this.components});
@@ -26,15 +24,26 @@ class ListComponentLoaded extends ComponentEvent{
   String toString() => 'ListComponentLoaded { components: $components }';
 }
 
-class AddComponentStarted extends ComponentEvent{
-
+class AddComponentStarted extends ComponentEvent {
   final Component component;
 
   AddComponentStarted(this.component);
-  
+
   @override
   List<Object> get props => [this.component];
 
   @override
   String toString() => 'AddComponentStarted {component: ${this.component}}';
+}
+
+class DeleteComponentStarted extends ComponentEvent {
+  final String componentId;
+
+  DeleteComponentStarted(this.componentId);
+
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'DeleteComponentStarted { componentId: $componentId }';
 }

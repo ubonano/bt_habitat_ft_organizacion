@@ -9,8 +9,7 @@ class ComponentInitial extends ComponentState {
   List<Object> get props => [];
 }
 
-class ListComponentinProcess extends ComponentState{
-
+class ListComponentinProcess extends ComponentState {
   @override
   List<Object> get props => [];
 
@@ -18,7 +17,7 @@ class ListComponentinProcess extends ComponentState{
   String toString() => 'ListComponentinProcess {}';
 }
 
-class ListComponentSuccess extends ComponentState{
+class ListComponentSuccess extends ComponentState {
   final List<Component> components;
 
   ListComponentSuccess({@required this.components});
@@ -29,9 +28,7 @@ class ListComponentSuccess extends ComponentState{
   String toString() => 'ListComponentSuccess {}';
 }
 
-
-class AddComponentInProcess extends ComponentState{
-  
+class AddComponentInProcess extends ComponentState {
   @override
   List<Object> get props => [];
 
@@ -39,8 +36,7 @@ class AddComponentInProcess extends ComponentState{
   String toString() => 'AddComponentInProcess {}';
 }
 
-class AddComponentSuccess extends ComponentState{
-  
+class AddComponentSuccess extends ComponentState {
   @override
   List<Object> get props => [];
 
@@ -48,11 +44,34 @@ class AddComponentSuccess extends ComponentState{
   String toString() => 'AddComponentSuccess {}';
 }
 
-class AddComponentFailure extends ComponentState{
-  
+class AddComponentFailure extends ComponentState {
   @override
   List<Object> get props => [];
 
   @override
   String toString() => 'AddComponentFailure {}';
+}
+
+class DeleteComponentInProcess extends ComponentState {
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'DeleteComponentInProcess {}';
+}
+
+class DeleteComponentSuccess extends ComponentState {
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'DeleteComponentSuccess {}';
+}
+
+class DeleteComponentFailure extends ComponentState {
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'DeleteComponentFailure {}';
 }

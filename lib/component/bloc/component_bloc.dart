@@ -33,6 +33,8 @@ class ComponentBloc extends Bloc<ComponentEvent, ComponentState> {
       yield ListComponentSuccess(components: event.components);
     } else if (event is AddComponentStarted) {
       yield* _mapAddComponentStartedToState(event.component);
+    } else if (event is DeleteComponentStarted) {
+      yield* _mapDeleteComponentStartedToState(event.componentId);
     }
   }
 
@@ -52,6 +54,17 @@ class ComponentBloc extends Bloc<ComponentEvent, ComponentState> {
       yield AddComponentSuccess();
     } catch (e) {
       yield AddComponentFailure();
+    }
+  }
+
+  Stream<ComponentState> _mapDeleteComponentStartedToState(
+      String componentId) async* {
+    try {
+      yield DeleteComponentInProcess();
+      _repository.delete(componentId);
+      yield DeleteComponentSuccess();
+    } catch (_) {
+      yield DeleteComponentFailure();
     }
   }
 }

@@ -18,7 +18,7 @@ class ComponentVideo implements Component {
       @required this.link});
 
   ComponentVideo.fromDocument(DocumentSnapshot snap)
-      : id = snap.data['id'],
+      : id = snap.documentID,
         title = snap.data['title'],
         type = snap.data['type'],
         link = snap.data['link'];
