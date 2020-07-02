@@ -1,6 +1,5 @@
+import 'package:bt_habitat_ft_organizacion/login/login.dart';
 import 'package:flutter/material.dart';
-
-import 'package:bt_habitat_ft_organizacion/home/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (BuildContext context) => HomeScreen(),
+        '/': (BuildContext context) => LoginPage(),
       },
     );
   }

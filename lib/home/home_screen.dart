@@ -2,12 +2,10 @@ import 'dart:math';
 
 import 'package:bt_habitat_ft_organizacion/workshop/add/bloc/add_workshop_bloc.dart';
 import 'package:bt_habitat_ft_organizacion/workshop/list/bloc/list_workshop_bloc.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:bt_habitat_ft_organizacion/workshop/workshop_model.dart';
 import 'package:bt_habitat_ft_organizacion/workshop/workshop_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
